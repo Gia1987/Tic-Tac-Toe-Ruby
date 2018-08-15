@@ -14,4 +14,8 @@ class Game
     return @current_player = 'O' if @current_player == 'X'
     @current_player = 'X'
   end
+
+  def play(input)
+    @state[input] = @current_player
+  end
 end
