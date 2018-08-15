@@ -18,4 +18,29 @@ class Game
   def play(input)
     @state[input] = @current_player
   end
+
+  def horizontal
+    true if
+      @state[0] == @current_player && @state[1] == @current_player && @state[2] == @current_player ||
+      @state[3] == @current_player && @state[4] == @current_player && @state[5] == @current_player ||
+      @state[6] == @current_player && @state[7] == @current_player && @state[8] == @current_player
+  end
+
+  def vertical
+    true if
+      @state[0] == @current_player && @state[3] == @current_player && @state[6] == @current_player ||
+      @state[1] == @current_player && @state[4] == @current_player && @state[7] == @current_player ||
+      @state[2] == @current_player && @state[5] == @current_player && @state[8] == @current_player
+  end
+
+  def diagonal
+    true if
+      @state[0] == @current_player && @state[4] == @current_player && @state[8] == @current_player ||
+      @state[2] == @current_player && @state[4] == @current_player && @state[6] == @current_player
+  end
+
+  def won?
+    true if horizontal == true || vertical == true || diagonal == true
+  end
+
 end
