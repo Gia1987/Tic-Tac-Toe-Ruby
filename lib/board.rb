@@ -1,10 +1,25 @@
 # Class manage to draw the board in the console by reciving the game_state
 class Board
-  def draw_board(game_state)
-    puts " #{game_state[0]} | #{game_state[1]} | #{game_state[2]} "
+  attr_reader :grid
+
+  def initialize
+    @grid = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
+  end
+  # draw the board based on the state of the game received
+
+  def draw_board
+    puts " #{@grid[0]} | #{@grid[1]} | #{@grid[2]} "
     puts '-----------'
-    puts " #{game_state[3]} | #{game_state[4]} | #{game_state[5]} "
+    puts " #{@grid[3]} | #{@grid[4]} | #{@grid[5]} "
     puts '-----------'
-    puts " #{game_state[6]} | #{game_state[7]} | #{game_state[8]} "
+    puts " #{@grid[6]} | #{@grid[7]} | #{@grid[8]} "
+  end
+
+  def update_grid(move, current_player)
+    if @grid[move] == ' '
+      @grid[move] = current_player
+    else
+      puts 'Please chose another cell'
+    end
   end
 end
