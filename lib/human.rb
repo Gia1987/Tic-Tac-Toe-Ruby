@@ -1,15 +1,18 @@
 # manage Human player
 class Human
-  attr_reader :name
+  attr_reader :mark
+
   def initialize
-    @name = ''
+    @mark = ''
   end
 
-  def human_name
-    @name = gets.chomp
+  def human_mark
+    puts 'Please chose your mark:'
+    @mark = gets.chomp
   end
 
   def move
-    gets.chomp.upcase
+    puts 'Please insert a number between 0-8'
+    gets.to_i
   end
 end

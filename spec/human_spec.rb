@@ -3,17 +3,17 @@ require './lib/human'
 
 describe Human do
   subject(:human) { Human.new }
-  context 'player can inserts the name' do
-    it 'change name attribute' do
-      allow(human).to receive(:gets) { 'Giacomo' }
-      human.human_name
-      expect(human.name).to eq('Giacomo')
+  context 'player can chose the mark' do
+    it 'change mark attribute' do
+      allow(human).to receive(:gets) { 'X' }
+      human.human_mark
+      expect(human.mark).to eq('X')
     end
   end
   context '#move' do
     it 'recives input from player' do
-      allow(human).to receive(:gets) { 'x' }
-      expect(human.move).to eq('X')
+      allow(human).to receive(:gets) { 1 }
+      expect(human.move).to eq(1)
     end
   end
 end
