@@ -37,4 +37,12 @@ class Game
   def draw?
     !won?(current_player) && !won?(@players.last) && count == 8
   end
+
+  def congrats
+    puts "Congratulations #{current_player}"
+  end
+
+  def no_wins
+    puts 'Its a Draw!'
+  end
 end
