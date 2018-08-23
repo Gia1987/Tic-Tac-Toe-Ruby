@@ -43,4 +43,11 @@ describe Game do
       expect(game.won?).to eq(true)
     end
   end
+  context '#draw?' do
+    it 'returns true if nobody won and the grid is full' do
+      allow(game).to receive(:won?) { false }
+      allow(game).to receive(:count) { 8 }
+      expect(game.draw?).to eq(true)
+    end
+  end
 end
