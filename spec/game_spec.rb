@@ -50,4 +50,14 @@ describe Game do
       expect(game.draw?).to eq(true)
     end
   end
+  context '#congrats' do
+    it 'should puts a string' do
+      expect { game.congrats }.to output("Congratulations O\n").to_stdout
+    end
+  end
+  context '#no_wins' do
+    it 'should puts a string' do
+      expect { game.no_wins }.to output("Its a Draw!\n").to_stdout
+    end
+  end
 end
