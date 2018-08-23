@@ -33,4 +33,8 @@ class Game
   def won?(player = current_player)
     winning_combinations.any? { |combo| combo.all? { |index| @board.grid[index] == player} }
   end
+
+  def draw?
+    !won?(current_player) && !won?(@players.last) && count == 8
+  end
 end
