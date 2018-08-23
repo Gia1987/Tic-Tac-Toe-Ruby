@@ -5,6 +5,8 @@ describe Game do
   subject(:game) { Game.new(human, board) }
   let(:human) { double(:move, move: nil) }
   let(:board) { double(:grid, grid: nil) }
+  let(:board) { double(:draw_board, draw_board: nil) }
+  let(:board) { double(:update_grid, update_grid: nil) }
 
   context '#players' do
     it 'is an array with O and X' do
@@ -70,6 +72,20 @@ describe Game do
       allow(game).to receive(:won?) { false }
       allow(game).to receive(:draw?) { true }
       expect(game.over?).to eq(true)
+    end
+  end
+  context '#play' do
+    it 'prints congrats if the game is won' do
+      allow(game).to receive(:current_player) { 'X' }
+      allow(board).to receive(:draw_board)
+      allow(game).to receive(:won?) { true }
+      expect { game.play }.to output("Congratulations X\n").to_stdout
+    end
+    it 'returns draw if the game has no_wins' do
+      allow(board).to receive(:draw_board)
+      allow(game).to receive(:won?) { false }
+      allow(game).to receive(:draw?) { true }
+      expect { game.play }.to output("Its a Draw!\n").to_stdout
     end
   end
 end
