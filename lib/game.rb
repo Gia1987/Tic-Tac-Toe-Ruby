@@ -45,4 +45,8 @@ class Game
   def no_wins
     puts 'Its a Draw!'
   end
+
+  def over?
+    won?(current_player) || won?(@players.last) || draw?
+  end
 end
