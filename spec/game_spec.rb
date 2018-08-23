@@ -2,80 +2,44 @@ require 'spec_helper'
 require './lib/game'
 
 describe Game do
-  subject(:game) { Game.new }
-  context '#game_state' do
-    it 'is a array of nine elements as a state of the game' do
-      expect(game.state).to eq([' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '])
+  subject(:game) { Game.new(human, board) }
+  let(:human) { double(:move, move: nil) }
+  let(:board) { double(:grid, grid: nil) }
+
+  context '#players' do
+    it 'is an array with O and X' do
+      expect(game.players).to eq(['O', 'X'])
+    end
+  end
+  context '#winning_combinations' do
+    it 'is an array with winning combinations' do
+      expect(game.winning_combinations).to eq([
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+      ])
+    end
+  end
+  context '#current_player' do
+    it 'returns first element of the array players' do
+      expect(game.current_player).to eq('O')
     end
   end
   context '#change_player' do
-    it 'turns current player from X to O' do
-      game.change_player
-      expect(game.current_player).to eq('O')
+    it 'rotates the element of the array players' do
+      game.players
+      expect(game.change_player).to eq(['X', 'O'])
     end
-    it 'turns current player from O to X' do
+    it 'increase count attribute' do
       game.change_player
       game.change_player
-      expect(game.current_player).to eq('X')
-    end
-  end
-  context '#play' do
-    it 'should update the state of the game' do
-      game.play(0)
-      game.change_player
-      game.play(2)
-      game.change_player
-      game.play(4)
-      game.change_player
-      game.play(6)
-      expect(game.state).to eq(['X', ' ', 'O', ' ', 'X', ' ', 'O', ' ', ' '])
-    end
-  end
-  context '#horizontal_winning' do
-    it 'should check if there is a winner on the row' do
-      game.play(0)
-      game.change_player
-      game.play(5)
-      game.change_player
-      game.play(1)
-      game.change_player
-      game.play(3)
-      game.change_player
-      game.play(2)
-      expect(game.horizontal).to eq(true)
-    end
-  end
-  context '#vertical_winning' do
-    it 'should check if there is a winner on the column' do
-      game.play(0)
-      game.change_player
-      game.play(4)
-      game.change_player
-      game.play(3)
-      game.change_player
-      game.play(2)
-      game.change_player
-      game.play(6)
-      expect(game.vertical).to eq(true)
-    end
-  end
-  context '#diagonal_winning' do
-    it 'should check if there is a winner on the diagonal' do
-      game.play(0)
-      game.change_player
-      game.play(5)
-      game.change_player
-      game.play(4)
-      game.change_player
-      game.play(3)
-      game.change_player
-      game.play(8)
-      expect(game.diagonal).to eq(true)
+      expect(game.count).to eq(1)
     end
   end
   context '#won?' do
-    it 'should check if there is a winner' do
-      allow(game).to receive(:horizontal) { true }
+    it 'returs true if the game is either won' do
+      allow(game).to receive(:current_player) { 'X' }
+      allow(board).to receive(:grid) {['X', 'X', 'X', ' ', 'O', ' ', 'O', ' ', ' ']}
       expect(game.won?).to eq(true)
     end
   end
