@@ -60,4 +60,16 @@ describe Game do
       expect { game.no_wins }.to output("Its a Draw!\n").to_stdout
     end
   end
+  context '#over?' do
+    it 'returs true if the game won' do
+      allow(game).to receive(:draw?) { false }
+      allow(game).to receive(:won?) { true }
+      expect(game.over?).to eq(true)
+    end
+    it 'returs true if the game draw' do
+      allow(game).to receive(:won?) { false }
+      allow(game).to receive(:draw?) { true }
+      expect(game.over?).to eq(true)
+    end
+  end
 end
