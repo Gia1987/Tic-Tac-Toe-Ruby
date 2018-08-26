@@ -6,7 +6,6 @@ class Board
     @grid = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
   end
   # draw the board based on the state of the game received
-
   def draw_board
     puts " #{@grid[0]} | #{@grid[1]} | #{@grid[2]} "
     puts '-----------'
@@ -21,5 +20,9 @@ class Board
     else
       puts 'Please chose another cell'
     end
+  end
+
+  def reset_grid
+    @grid = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
   end
 end
