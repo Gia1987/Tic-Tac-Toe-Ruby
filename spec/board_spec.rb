@@ -27,4 +27,13 @@ describe Board do
       expect { board.update_grid(0, 'X') }.to output("Please chose another cell\n").to_stdout
     end
   end
+  context '#reset_grid' do
+    it 'it refresh the grid as an array of empty strings' do
+      board.update_grid(0, 'X')
+      board.update_grid(1, 'O')
+      board.update_grid(0, 'X')
+      board.reset_grid
+      expect(board.grid).to eq([' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '])
+    end
+  end
 end
