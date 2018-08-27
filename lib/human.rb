@@ -1,7 +1,13 @@
 # manage Human player
 class Human
+  attr_reader :mark
+
+  def initialize
+    @mark = ''
+  end
+
   def human_mark
-    gets.chomp.upcase
+    @mark = gets.chomp.upcase
   end
 
   def move
