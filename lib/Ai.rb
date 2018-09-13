@@ -1,7 +1,12 @@
-# manage AI player
+# AI Class manage computer's player
 class AI
+  attr_reader :mark
 
-  def random_move
-    rand(0..8)
+  def initialize(mark)
+    @mark = mark
+  end
+
+  def move(board)
+    board.available_indexes.sample
   end
 end
