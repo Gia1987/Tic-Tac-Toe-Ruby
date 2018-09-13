@@ -4,14 +4,13 @@ require_relative './Ai'
 
 # Game class manage all of the logic and state of the game.
 class Game
-  attr_reader :count, :over, :players
+  attr_reader :over, :players
 
   def initialize(human_class = Human, board_class = Board, computer_class = AI)
     @computer_class = computer_class
     @human_class = human_class
     @board = board_class.new
     @players = []
-    @count = -1
   end
 
   def winning_combinations
@@ -67,7 +66,6 @@ class Game
 
   def reset_game
     @board.reset_grid
-    @count = -1
     menu
   end
 
@@ -75,13 +73,8 @@ class Game
     @players.first
   end
 
-  def increase_count
-    @count += 1
-  end
-
   def change_player
     @players.rotate!
-    increase_count
     puts "Player #{current_player.mark} is your turn."
   end
   # should check if any combination has neen matched during the game.
@@ -94,7 +87,7 @@ class Game
   end
 
   def draw?
-    !won? && count == 8
+    !won? && @board.full?
   end
 
   def congrats
@@ -109,3 +102,5 @@ class Game
     won? || draw?
   end
 end
+
+Game.new.menu
