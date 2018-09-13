@@ -2,15 +2,12 @@
 class Human
   attr_reader :mark
 
-  def initialize
-    @mark = ''
+  def initialize(mark)
+    @mark = mark
   end
 
-  def human_mark
-    @mark = gets.chomp.upcase
-  end
-
-  def move
+  # * means that the method is going to take an argument that Im not gonna use
+  def move(*)
     puts 'Please insert a number between 0-8'
     gets.to_i
   end
