@@ -6,6 +6,10 @@ class AI
     @mark = mark
   end
 
+  def is_computer?
+    true
+  end
+
   def move(board)
     board.available_indexes.sample
   end

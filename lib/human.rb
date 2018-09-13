@@ -6,9 +6,11 @@ class Human
     @mark = mark
   end
 
-  # * means that the method is going to take an argument that Im not gonna use
-  def move(*)
-    puts 'Please insert a number between 0-8'
+  def is_computer?
+    false
+  end
+
+  def move(_game)
     gets.to_i
   end
 end
