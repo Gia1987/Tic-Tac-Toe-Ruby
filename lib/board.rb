@@ -22,6 +22,10 @@ class Board
     end
   end
 
+  def available_indexes
+    @grid.each_index.select { |i| @grid[i] == ' ' }
+  end
+
   def reset_grid
     @grid = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
   end
