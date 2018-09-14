@@ -5,7 +5,7 @@ require_relative './messages'
 
 # Game class manage all of the logic and state of the game.
 class Game
-  attr_reader :over, :players
+  attr_reader :players, :board
 
   def initialize(human_class = Human, board_class = Board, computer_class = AI, messages_class = Messages)
     @computer_class = computer_class
@@ -17,11 +17,13 @@ class Game
 
   def menu
     @messages.welcome
-    input = gets.to_i
-    case input
+    case gets.to_i
     when 1 then @players = [@human_class.new('X'), @human_class.new('O')]
     when 2 then @players = [@computer_class.new('X'), @computer_class.new('O')]
-    when 3 then @players = [@human_class.new('X'), @computer_class.new('O')]
+    when 3 then @players = [@computer_class.new('X'), @human_class.new('O')]
+    else
+      @messages.warning
+      menu
     end
     start
     play_again?
@@ -40,10 +42,10 @@ class Game
   def take_turn
     @board.draw_board
     @messages.prompt_player(current_player)
-    move = current_player.move(@board)
+    move = current_player.move(self)
     if move_is_valid?(move)
       @board.update_grid(move, current_player)
-      change_player
+      # change_player
     else
       @messages.choose_again
       take_turn
@@ -68,7 +70,8 @@ class Game
   end
 
   def current_player
-    @players.first
+    # @players.first
+    @board.available_indexes.count.odd? ? @players.first : @players.last
   end
 
   def change_player
@@ -85,6 +88,11 @@ class Game
 
   def draw?
     !won? && @board.full?
+  end
+
+  def winner
+    return unless won?
+    won_by?(@players.first) ? @players.first : @players.last
   end
 
   # should check if the game either won or draw.
