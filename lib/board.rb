@@ -2,8 +2,8 @@
 class Board
   attr_reader :grid
 
-  def initialize
-    @grid = Array.new(9, ' ')
+  def initialize(grid = Array.new(9, ' '))
+    @grid = grid
   end
 
   def winning_combinations
@@ -26,6 +26,10 @@ class Board
 
   def update_grid(move, current_player)
     @grid[move] = current_player.mark if @grid[move] == ' '
+  end
+
+  def reset_tile(index)
+    @grid[index] = ' '
   end
 
   def available_indexes
